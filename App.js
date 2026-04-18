@@ -13,16 +13,15 @@ import {
 import EventCard from "./components/EventCard";
 import { EVENTS } from "./data/events";
 
-// Wymóg: Pasek filtrów kategorii
+
 const CATEGORIES = ["Wszystkie", "Nauka", "Sport", "Muzyka", "Film"];
 
 export default function App() {
   const [eventsList, setEventsList] = useState(EVENTS);
 
-  // Stany dla wyszukiwarki i filtrów
-  const [searchQuery, setSearchQuery] = useState(""); // Wymóg: Wyszukiwanie tekstem
-  const [selectedCategory, setSelectedCategory] = useState("Wszystkie"); // Wymóg: Filtry kategorii
-  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false); // Wymóg: Nasze własne rozszerzenie
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const [selectedCategory, setSelectedCategory] = useState("Wszystkie"); 
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false); 
 
   const toggleFavorite = (id) => {
     setEventsList(
@@ -32,8 +31,7 @@ export default function App() {
     );
   };
 
-  // WYMÓG: Pochodny stan. Nie przetrzymujemy przefiltrowanej listy w osobnym stanie.
-  // Filtrowanie działa RÓWNOCZEŚNIE dla kategorii, wyszukiwarki i ulubionych.
+  
   const displayedEvents = eventsList.filter((event) => {
     const matchesSearch = event.title
       .toLowerCase()
@@ -48,13 +46,12 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        {/* WYMÓG: Nagłówek aplikacji z tytułem i krótkim opisem */}
         <Text style={styles.header}>Katalog Wydarzeń</Text>
         <Text style={styles.description}>
           Znajdź, przefiltruj i zapisz najciekawsze eventy w swojej okolicy!
         </Text>
 
-        {/* WYMÓG: Pole wyszukiwania przez TextInput */}
+      
         <TextInput
           style={styles.searchInput}
           placeholder="Wyszukaj wydarzenie po nazwie..."
@@ -62,7 +59,7 @@ export default function App() {
           onChangeText={setSearchQuery}
         />
 
-        {/* WYMÓG: Pasek filtrów kategorii (przewijany w poziomie dla wygody) */}
+       
         <View style={styles.categoriesWrapper}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {CATEGORIES.map((cat) => (
@@ -70,7 +67,7 @@ export default function App() {
                 key={cat}
                 style={[
                   styles.categoryButton,
-                  selectedCategory === cat && styles.categoryButtonActive, // Wymóg: Wyraźnie inny wygląd aktywnego filtra
+                  selectedCategory === cat && styles.categoryButtonActive, 
                 ]}
                 onPress={() => setSelectedCategory(cat)}
               >
@@ -87,7 +84,7 @@ export default function App() {
           </ScrollView>
         </View>
 
-        {/* Nasze własne rozszerzenie (wymóg zaliczenia) */}
+        
         <Pressable
           style={[
             styles.filterButton,
@@ -107,7 +104,7 @@ export default function App() {
           </Text>
         </Pressable>
 
-        {/* WYMÓG: Liczba aktualnie widocznych wyników */}
+        
         <Text style={styles.resultsCount}>
           Znaleziono wyników:{" "}
           <Text style={styles.resultsCountBold}>{displayedEvents.length}</Text>
@@ -182,7 +179,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   categoryButtonActive: {
-    backgroundColor: "#007BFF", // Aktywny filtr kategorii na niebiesko
+    backgroundColor: "#007BFF", 
   },
   categoryText: {
     color: "#333",
